@@ -9,9 +9,14 @@ from keras.layers import Dense
 from keras.layers import Flatten
 from keras.optimizers import SGD
 from keras.preprocessing.image import ImageDataGenerator
+import numpy as np
+import os
+
 
 
 path = "D:/Academics/ECE/Sem 6/DeepLearning/Project/output/CLEANED_DATA/"
+category_list = os.listdir(path)
+print(category_list)
 training_data_dir = path + "train"
 test_data_dir = path + "test"
 
@@ -26,7 +31,7 @@ def define_model():
     model.add(Dense(46, activation='sigmoid'))
     # compile model
     opt = SGD(lr=0.001, momentum=0.9)
-    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
 
@@ -63,7 +68,15 @@ def run_test_harness():
     history = model.fit_generator(train_it, steps_per_epoch=len(train_it), epochs=50, verbose=1)
     # evaluate model
     _, acc = model.evaluate_generator(test_it, steps=len(test_it), verbose=0)
-    print('> %.9f' % (acc * 100.0))
+    k = model.predict(test_it)
+    h = [np.argmax(x) for x in k]
+    print(h)
+    s = 1
+    for i in h:
+        k = category_list[i]
+        print('Test Image {}: Belongs to class {}'.format(s,k))
+        s = s+1
+    #print('> %.9f' % (acc * 100.0))
     # learning curves
     summarize_diagnostics(history)
 
