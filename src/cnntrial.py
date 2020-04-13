@@ -30,7 +30,7 @@ def define_model():
     model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
     model.add(Dense(46, activation='sigmoid'))
     # compile model
-    opt = SGD(lr=0.001, momentum=0.9)
+    opt = SGD(lr=0.001, momentum=0.8)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
