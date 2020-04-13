@@ -55,6 +55,8 @@ def summarize_diagnostics(history):
 def run_test_harness():
     # define model
     model = define_model()
+    model.save("model.h5")
+    print("Saved model to disk")
     # create data generator
     datagen = ImageDataGenerator(rescale=1.0 / 255.0)
     # prepare iterators
