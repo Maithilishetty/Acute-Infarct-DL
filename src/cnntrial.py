@@ -12,20 +12,22 @@ from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 import os
 
-
-
-path = "D:/Academics/ECE/Sem 6/DeepLearning/Project/output/CLEANED_DATA/"
+path = "C:/Users/bidnu/Documents/Sem_6/Deep_Learning_CIE/Assignment_2-Completed/output/CLEANED_DATA/"
 category_list = os.listdir(path)
 print(category_list)
+
 training_data_dir = path + "train"
 test_data_dir = path + "test"
 
 # define cnn model
 def define_model():
     model = Sequential()
-    model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same',
+    model.add(Conv2D(32, (5, 5), activation='relu', kernel_initializer='he_uniform', padding='same',
                      input_shape=(200, 200, 3)))
     model.add(MaxPooling2D((2, 2)))
+    model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='random_uniform', padding='same'))
+                     #input_shape=(200, 200, 3)))
+    model.add(MaxPooling2D((4, 4)))
     model.add(Flatten())
     model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
     model.add(Dense(46, activation='sigmoid'))
@@ -55,22 +57,24 @@ def summarize_diagnostics(history):
 def run_test_harness():
     # define model
     model = define_model()
-    model.save("model.h5")
-    print("Saved model to disk")
     # create data generator
-    datagen = ImageDataGenerator(rescale=1.0 / 255.0)
+    datagen = ImageDataGenerator(rescale=1.0 / 255.0)#, horizontal_flip=True,zoom_range=[0.5,1.0])
     # prepare iterators
     train_it = datagen.flow_from_directory(training_data_dir,
-                                           class_mode='categorical', batch_size=64, target_size=(200, 200))
+                                           class_mode='categorical', batch_size=46, target_size=(200, 200))
     test_it = datagen.flow_from_directory(test_data_dir,
-                                          class_mode='categorical', batch_size=64, target_size=(200, 200))
+                                          class_mode='categorical', batch_size=46, target_size=(200, 200))
     # fit model
-    keras.callbacks.callbacks.EarlyStopping(monitor='train_acc', min_delta=0.1, patience=10, verbose=0, mode='auto',
-                                            baseline=None, restore_best_weights=False)
-    history = model.fit_generator(train_it, steps_per_epoch=len(train_it), epochs=50, verbose=1)
+    keras.callbacks.callbacks.EarlyStopping(monitor='train_acc', min_delta=0.1, patience=10, verbose=1, mode='auto',
+                                            baseline=0.6, restore_best_weights=True)
+    history = model.fit_generator(train_it, steps_per_epoch=len(train_it), epochs=20, verbose=1)
     # evaluate model
     _, acc = model.evaluate_generator(test_it, steps=len(test_it), verbose=0)
     k = model.predict(test_it)
+
+    model.save("model.h5")
+    print("Saved model to disk")
+    
     h = [np.argmax(x) for x in k]
     print(h)
     s = 1
@@ -85,6 +89,3 @@ def run_test_harness():
 
 # entry point, run the test harness
 run_test_harness()
-
-
-
