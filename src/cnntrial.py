@@ -12,7 +12,7 @@ from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 import os
 
-path = "C:/Users/bidnu/Documents/Sem_6/Deep_Learning_CIE/Assignment_2-Completed/output/CLEANED_DATA/"
+path = "D:/Academics/ECE/Sem 6/DeepLearning/Project/output/CLEANED_DATA/"
 category_list = os.listdir(path)
 print(category_list)
 
@@ -30,7 +30,7 @@ def define_model():
     model.add(MaxPooling2D((4, 4)))
     model.add(Flatten())
     model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
-    model.add(Dense(46, activation='sigmoid'))
+    model.add(Dense(46, activation='softmax'))
     # compile model
     opt = SGD(lr=0.001, momentum=0.8)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
@@ -58,16 +58,26 @@ def run_test_harness():
     # define model
     model = define_model()
     # create data generator
-    datagen = ImageDataGenerator(rescale=1.0 / 255.0)#, horizontal_flip=True,zoom_range=[0.5,1.0])
+    #datagen = ImageDataGenerator(rescale=1.0 / 255.0)#, horizontal_flip=True,zoom_range=[0.5,1.0])
     # prepare iterators
-    train_it = datagen.flow_from_directory(training_data_dir,
-                                           class_mode='categorical', batch_size=46, target_size=(200, 200))
-    test_it = datagen.flow_from_directory(test_data_dir,
+    train_datagen = ImageDataGenerator(
+        rotation_range=40,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        rescale=1. / 255,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True)
+    test_datagen = ImageDataGenerator(rescale=1. / 255)
+    output = r"D:\Academics\ECE\Sem 6\DeepLearning\Project\output\CLEANED_DATA\example"
+    train_it = train_datagen.flow_from_directory(training_data_dir,
+                                           class_mode='categorical', batch_size=46, target_size=(200, 200), save_to_dir= output, save_prefix='image', save_format='jpg')
+    test_it = test_datagen.flow_from_directory(test_data_dir,
                                           class_mode='categorical', batch_size=46, target_size=(200, 200))
     # fit model
     keras.callbacks.callbacks.EarlyStopping(monitor='train_acc', min_delta=0.1, patience=10, verbose=1, mode='auto',
                                             baseline=0.6, restore_best_weights=True)
-    history = model.fit_generator(train_it, steps_per_epoch=len(train_it), epochs=20, verbose=1)
+    history = model.fit_generator(train_it, steps_per_epoch=1, epochs=40, verbose=1)
     # evaluate model
     _, acc = model.evaluate_generator(test_it, steps=len(test_it), verbose=0)
     k = model.predict(test_it)
@@ -82,7 +92,7 @@ def run_test_harness():
         k = category_list[i]
         print('Test Image {}: Belongs to class {}'.format(s,k))
         s = s+1
-    #print('> %.9f' % (acc * 100.0))
+    print('> %.9f' % (acc * 100.0))
     # learning curves
     summarize_diagnostics(history)
 
