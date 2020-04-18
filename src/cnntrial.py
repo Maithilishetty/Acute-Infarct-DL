@@ -12,27 +12,27 @@ from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 import os
 
-path = "D:/Academics/ECE/Sem 6/DeepLearning/Project/output/CLEANED_DATA/"
+# path = "C:/Users/bidnu/Documents/Sem_6/Deep_Learning_CIE/Assignment_2-Completed/output/CLEANED_DATA/"
+src_path = os.getcwd()
+path = os.path.join(src_path[0:-4],"output","CLEANED_DATA")
 category_list = os.listdir(path)
+op_layer = len(category_list) - 2
 print(category_list)
 
-training_data_dir = path + "train"
-test_data_dir = path + "test"
+training_data_dir = os.path.join(path,"train")
+test_data_dir = os.path.join(path,"test")
 
 # define cnn model
 def define_model():
     model = Sequential()
-    model.add(Conv2D(32, (5, 5), activation='relu', kernel_initializer='he_uniform', padding='same',
+    model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer = 'he_uniform', padding='same',
                      input_shape=(200, 200, 3)))
-    model.add(MaxPooling2D((2, 2)))
-    model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='random_uniform', padding='same'))
-                     #input_shape=(200, 200, 3)))
     model.add(MaxPooling2D((4, 4)))
     model.add(Flatten())
-    model.add(Dense(128, activation='relu', kernel_initializer='he_uniform'))
-    model.add(Dense(46, activation='softmax'))
+    model.add(Dense(64, activation='relu'))
+    model.add(Dense(op_layer, activation='softmax'))
     # compile model
-    opt = SGD(lr=0.001, momentum=0.8)
+    opt = SGD(lr=0.001, momentum=0.9)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
@@ -58,33 +58,25 @@ def run_test_harness():
     # define model
     model = define_model()
     # create data generator
-    #datagen = ImageDataGenerator(rescale=1.0 / 255.0)#, horizontal_flip=True,zoom_range=[0.5,1.0])
+    datagen = ImageDataGenerator(rescale=1.0 / 255.0)
     # prepare iterators
-    train_datagen = ImageDataGenerator(
-        rotation_range=40,
-        width_shift_range=0.2,
-        height_shift_range=0.2,
-        rescale=1. / 255,
-        shear_range=0.2,
-        zoom_range=0.2,
-        horizontal_flip=True)
-    test_datagen = ImageDataGenerator(rescale=1. / 255)
-    output = r"D:\Academics\ECE\Sem 6\DeepLearning\Project\output\CLEANED_DATA\example"
-    train_it = train_datagen.flow_from_directory(training_data_dir,
-                                           class_mode='categorical', batch_size=46, target_size=(200, 200), save_to_dir= output, save_prefix='image', save_format='jpg')
-    test_it = test_datagen.flow_from_directory(test_data_dir,
-                                          class_mode='categorical', batch_size=46, target_size=(200, 200))
+    train_it = datagen.flow_from_directory(training_data_dir,
+                                           class_mode='categorical', batch_size=46, target_size=(200, 200),shuffle=False)
+    test_it = datagen.flow_from_directory(test_data_dir,
+                                          class_mode='categorical', batch_size=46, target_size=(200, 200),shuffle=False)
     # fit model
-    keras.callbacks.callbacks.EarlyStopping(monitor='train_acc', min_delta=0.1, patience=10, verbose=1, mode='auto',
-                                            baseline=0.6, restore_best_weights=True)
-    history = model.fit_generator(train_it, steps_per_epoch=1, epochs=40, verbose=1)
+    history = model.fit_generator(train_it, steps_per_epoch=len(train_it), epochs=50, verbose=1)
     # evaluate model
     _, acc = model.evaluate_generator(test_it, steps=len(test_it), verbose=0)
-    k = model.predict(test_it)
-
+    # k = model.predict(test_it)
+    test_it.reset()
+    k = model.predict_generator(test_it,steps=len(test_it),verbose=1)
+    
     model.save("model.h5")
     print("Saved model to disk")
     
+    #test_acc = history.history['test_acc']
+    #print(test_acc)
     h = [np.argmax(x) for x in k]
     print(h)
     s = 1

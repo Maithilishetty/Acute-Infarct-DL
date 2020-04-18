@@ -16,5 +16,6 @@ if __name__ == "__main__":
   rename.rename_files(src_path)
   filtimg.keep_pic(src_path,"DWI")
   clean.rename_folders(src_path)
+  clean.further_name_clean(src_path)
   datasplit.create_dataset(src_path)
   print("Successfully completed")
