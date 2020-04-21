@@ -79,5 +79,5 @@ def main():
     print('Saved as TF frozen model to: ', output_model)
 
 
-if __name__ == '__main__':
-  main()
+# if __name__ == '__main__':
+#   main()
