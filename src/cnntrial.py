@@ -11,6 +11,7 @@ from keras.optimizers import SGD
 from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
 import os
+import keras_to_tf as convmodel
 
 # path = "C:/Users/bidnu/Documents/Sem_6/Deep_Learning_CIE/Assignment_2-Completed/output/CLEANED_DATA/"
 src_path = os.getcwd()
@@ -91,3 +92,6 @@ def run_test_harness():
 
 # entry point, run the test harness
 run_test_harness()
+
+# Convert the h5 model file to pb file
+convmodel.main()
