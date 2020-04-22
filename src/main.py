@@ -1,8 +1,10 @@
 # function calls the other modules and creates the required output files
 import read_pdf_file as rd_file
 import table_querry as tq
-import rename_files as rename
-import data_for_model as data
+import rename_image_files as rename
+import filter_images as filtimg
+import datasplit
+import folder_name_cleaning as clean
 import os
 
 if __name__ == "__main__":
@@ -12,5 +14,8 @@ if __name__ == "__main__":
   folder_names,loc = tq.get_needed_data(df)
   tq.create_cleaned_data(src_path,folder_names,loc)
   rename.rename_files(src_path)
-  data.keep_pic(src_path,"DWI")
+  filtimg.keep_pic(src_path,"DWI")
+  clean.rename_folders(src_path)
+  clean.further_name_clean(src_path)
+  datasplit.create_dataset(src_path)
   print("Successfully completed")
