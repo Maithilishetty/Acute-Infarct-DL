@@ -1,7 +1,3 @@
-# Important Info
-
-Done by Suraj Bidnur  
-USN: PES1201700145
 
 ### Requirements:
 1. Python 3.x
@@ -56,3 +52,10 @@ Any folder (Documents or Desktop etc)
    location
 4. "CLEANED_DATA" also contains the "test" and "train" folders which has data used by the CNN model
 5. In the "src" folder, the model files which are generated are saved
+
+### CMD Commands:
+1. To generate an XML and bin file: 
+&nbsp; a. Run the setupvars.bat file to initialize the OpenVino Environment. 
+&nbsp; b. Go to the model optimizer folder in IntelSWTools and run: python mo_tf.py --input_model <input_model_destination>.pb -b 1 --output_dir <output_directory> --scale 255 --data_type FP32
+2. To obtain an inference on the input image: 
+&nbsp; a. python inference_test.py -m <model_destination>.xml -i <input_image>
