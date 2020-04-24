@@ -1,0 +1,9 @@
+/src/__pycache__
+/src/*.bin
+/src/*.h5
+/src/*.mapping
+/src/*.pb
+/src/*.xml
+/src/data_for_model.py
+/src/rename_files.py
+/output
