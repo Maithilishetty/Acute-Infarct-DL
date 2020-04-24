@@ -1,9 +1,10 @@
 
 ### Requirements:
 1. Python 3.x
-2. pandas, tabula-py, nltk, matplotlib, keras, numpy, tensorflow and opencv modules
+2. Tensorflow 1.15 
+3. pandas, tabula-py, nltk, matplotlib, keras, numpy, tensorflow and opencv modules
    (can be install using "pip install module-name, module-name ...")
-3. For tabula, JAVA needs to be installed and has to be added to the PATH variables in windows.
+4. For tabula, JAVA needs to be installed and has to be added to the PATH variables in windows.
    To do this after installing JAVA, copy the path of the "bin" folder of the installation and add
    it to path variables by editing the system environment variables on the windows platform.
 
@@ -57,6 +58,5 @@ Any folder (Documents or Desktop etc)
 1. To generate an XML and bin file: </br>
 &nbsp; &nbsp; a. Run the setupvars.bat file to initialize the OpenVino Environment. </br>
 &nbsp; &nbsp; b. Go to the model optimizer folder in IntelSWTools and run: python mo_tf.py --input_model <input_model_destination>.pb -b 1 --output_dir <output_directory> --scale 255 --data_type FP32
-
 2. To obtain an inference on the input image: </br>
 &nbsp; &nbsp; a. python inference_test.py -m <model_destination>.xml -i <input_image>
