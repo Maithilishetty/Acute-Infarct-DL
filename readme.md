@@ -54,12 +54,9 @@ Any folder (Documents or Desktop etc)
 5. In the "src" folder, the model files which are generated are saved
 
 ### CMD Commands:
-1. To generate an XML and bin file: 
-
-&nbsp; &nbsp; a. Run the setupvars.bat file to initialize the OpenVino Environment. 
-
+1. To generate an XML and bin file: </br>
+&nbsp; &nbsp; a. Run the setupvars.bat file to initialize the OpenVino Environment. </br>
 &nbsp; &nbsp; b. Go to the model optimizer folder in IntelSWTools and run: python mo_tf.py --input_model <input_model_destination>.pb -b 1 --output_dir <output_directory> --scale 255 --data_type FP32
 
-2. To obtain an inference on the input image: 
-
+2. To obtain an inference on the input image: </br>
 &nbsp; &nbsp; a. python inference_test.py -m <model_destination>.xml -i <input_image>
