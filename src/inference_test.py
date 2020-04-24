@@ -24,6 +24,9 @@ import logging as log
 from time import time
 from openvino.inference_engine import IENetwork, IECore
 
+src_path = os.getcwd()
+path = os.path.join(src_path[0:-4],"output","CLEANED_DATA")
+category_list = os.listdir(path)
 
 def build_argparser():
     parser = ArgumentParser(add_help=False)
@@ -131,9 +134,13 @@ def main():
     #     print("\n")
     # log.info("This sample is an API example, for any performance measurements please use the dedicated benchmark_app tool\n")
     idx = np.argsort(res[0])[-1]
-    print(idx)
+    #print(idx)
     print(res)
-    print(res.shape)
+    h = np.argmax(res)
+    #print(h)
+    k = category_list[h]
+    print('The image belongs to class: {}'.format(k))
+    #print(res.shape)
 
 if __name__ == '__main__':
     sys.exit(main() or 0)

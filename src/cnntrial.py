@@ -34,7 +34,7 @@ def define_model():
     model.add(Dense(op_layer, activation='softmax'))
     # compile model
     opt = SGD(lr=0.001, momentum=0.9)
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
 
@@ -59,6 +59,14 @@ def run_test_harness():
     # define model
     model = define_model()
     # create data generator
+    '''train_datagen = ImageDataGenerator(rescale=1.0 / 255.0,
+                             rotation_range=90,
+                             zoom_range=0.15,
+                             width_shift_range=0.2,
+                             height_shift_range=0.2,
+                             shear_range=0.15,
+                             horizontal_flip=True,
+                             fill_mode="nearest")'''
     datagen = ImageDataGenerator(rescale=1.0 / 255.0)
     # prepare iterators
     train_it = datagen.flow_from_directory(training_data_dir,
