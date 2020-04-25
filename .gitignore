@@ -6,4 +6,5 @@
 /src/*.xml
 /src/data_for_model.py
 /src/rename_files.py
+/src/*.png
 /output
