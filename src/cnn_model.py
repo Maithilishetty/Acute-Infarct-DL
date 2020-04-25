@@ -7,6 +7,7 @@ from keras.layers import Conv2D
 from keras.layers import MaxPooling2D
 from keras.layers import Dense
 from keras.layers import Flatten
+from keras.layers import Dropout
 from keras.optimizers import SGD
 from keras.preprocessing.image import ImageDataGenerator
 import numpy as np
@@ -23,17 +24,30 @@ print(category_list)
 training_data_dir = os.path.join(path,"train")
 test_data_dir = os.path.join(path,"test")
 
+# Added this so we know the class of images for testing to compare with prediction
+test_img_ind = list()
+test_folders = os.listdir(test_data_dir)
+for i in range(len(test_folders)):
+  if not (len(os.listdir(os.path.join(test_data_dir,test_folders[i]))) == 0):
+    test_img_ind.append(i)
+
 # define cnn model
 def define_model():
     model = Sequential()
     model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer = 'he_uniform', padding='same',
                      input_shape=(200, 200, 3)))
     model.add(MaxPooling2D((4, 4)))
+    model.add(Dropout(0.5))
+
+    model.add(Conv2D(8, (3, 3), activation='relu', kernel_initializer = 'he_uniform', padding='same'))
+    model.add(MaxPooling2D((2, 2)))
+    model.add(Dropout(0.1))
+
     model.add(Flatten())
     model.add(Dense(64, activation='relu'))
     model.add(Dense(op_layer, activation='softmax'))
     # compile model
-    opt = SGD(lr=0.001, momentum=0.9)
+    opt = SGD(lr=0.002, momentum=0.9)
     model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
@@ -80,6 +94,7 @@ def run_test_harness():
     # k = model.predict(test_it)
     test_it.reset()
     k = model.predict_generator(test_it,steps=len(test_it),verbose=1)
+    print(k)
     
     model.save("model.h5")
     print("Saved model to disk")
@@ -88,6 +103,7 @@ def run_test_harness():
     #print(test_acc)
     h = [np.argmax(x) for x in k]
     print(h)
+    print(test_img_ind)
     s = 1
     for i in h:
         k = category_list[i]
