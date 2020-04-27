@@ -36,7 +36,9 @@ Any folder (Documents or Desktop etc)
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file folder_name_cleaning.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file cnn_model.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file keras_to_tf.py </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file inference_test2.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file inference_test.py </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file final.py </br>
 &nbsp; &nbsp; | </br>
 &nbsp; &nbsp; +-- file readme.txt </br>
 
@@ -45,7 +47,7 @@ Any folder (Documents or Desktop etc)
 2. Open the file named as "main.py" and run it
 3. Run "cnn_model.py" after "main.py"
 4. Now use the Intel model_optimizer and generate xml and bin files for the model
-5. Finally run "inference_test.py" for performing inference
+5. Finally run "final.py" for performing inference
 
 ### Output generated:
 1. Creates a folder called "output" </br>
