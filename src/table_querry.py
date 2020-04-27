@@ -4,43 +4,59 @@ import shutil
 
 import read_pdf_file
 
-def read_data(src_path):
+def read_data(src_path,inference=False):
   """
   Input is the path of the running script\n
   Reads the csv file created and return the dataframe\n
   """
-  data_frame_path = os.path.join(src_path[0:-4],"output","ACUTE_INFARCTS_excel.csv")
+
+  data_frame_path = os.path.join(src_path[0:-4],"output","ACUTE_INFARCTS_Updated.csv")
+  if inference:
+    data_frame_path = os.path.join(src_path[0:-4],"output","Inference_Data_GroundTruths.csv")
   df = pd.read_csv(data_frame_path)
   df.columns = df.columns.str.strip()
   df = df.sort_values(df.columns[-1])
   return df
 
-def get_needed_data(df):
+def get_needed_data(df,inference=False):
   """
   Input is the dataframe\n
   Processes the dataframe and returns the list of patient names and location of infarcts
   """
-  name_loc = df[["Name",df.columns[-1]]]
-  names = name_loc["Name"].to_list()
-  loc = name_loc["Location of acute infarct"].to_list()
-  loc = [i.replace("\r","") for i in loc]
-  folder_names = ["Case " + i[1:] for i in names]
+
+  if inference:
+    loc = df["Location of acute infarct"].to_list()
+    loc = [i.replace("\r","") for i in loc]
+    sl = [int(i) for i in df["Sl."].to_list()]
+    folder_names = ["Case " + str(i) for i in sl]
+  else:
+    name_loc = df[["Name",df.columns[-1]]]
+    names = name_loc["Name"].to_list()
+    loc = name_loc["Location of acute infarct"].to_list()
+    loc = [i.replace("\r","") for i in loc]
+    folder_names = ["Case " + i[1:] for i in names]
+
   return folder_names,loc
 
-
-def create_cleaned_data(src_path,folder_names,loc):
+def create_cleaned_data(src_path,folder_names,loc,inference=False):
   """
   Input is source path, folder names and location of infarcts\n
   Creates new folder for cleaned data which contains folders for all locations of infarcts\n
   Copies appropriate case folder images to their relevant dest folder
   """
+  
   cleaned_data_folder_path = os.path.join(src_path[0:-4],"output","CLEANED_DATA")
+  if inference:
+    cleaned_data_folder_path = os.path.join(src_path[0:-4],"output","Infer_data")
+
   if os.path.exists(cleaned_data_folder_path):
     shutil.rmtree(cleaned_data_folder_path)
     os.makedirs(cleaned_data_folder_path)
   else:
     os.makedirs(cleaned_data_folder_path)
   casefolder_base_path = os.path.join(src_path[0:-4],"Assignment_2")
+  if inference:
+    casefolder_base_path = os.path.join(src_path[0:-4],"Inference_Data")
 
   for i in range(len(folder_names)):
     case_folder_path = os.path.join(casefolder_base_path,folder_names[i])
