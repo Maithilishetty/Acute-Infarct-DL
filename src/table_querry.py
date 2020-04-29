@@ -27,6 +27,9 @@ def get_needed_data(df,inference=False):
   if inference:
     loc = df["Location of acute infarct"].to_list()
     loc = [i.replace("\r","") for i in loc]
+    loc = [i.lower() for i in loc]
+    loc = [i.replace("  "," ") for i in loc]
+    loc = [i.replace(" ","_") for i in loc]
     sl = [int(i) for i in df["Sl."].to_list()]
     folder_names = ["Case " + str(i) for i in sl]
   else:

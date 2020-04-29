@@ -25,39 +25,12 @@ from time import time
 from openvino.inference_engine import IENetwork, IECore
 
 src_path = os.getcwd()
-path = os.path.join(src_path[0:-4],"output","CLEANED_DATA")
+path = os.path.join(src_path[0:-4],"output","CLEANED_DATA","train")
 category_list = os.listdir(path)
-
-# def build_argparser():
-#     parser = ArgumentParser(add_help=False)
-#     args = parser.add_argument_group('Options')
-#     args.add_argument('-h', '--help', action='help', default=SUPPRESS, help='Show this help message and exit.')
-#     args.add_argument("-m", "--model", help="Required. Path to an .xml file with a trained model.", required=True,
-#                       type=str)
-#     args.add_argument("-i", "--input", help="Required. Path to a folder with images or path to an image files",
-#                       required=True,
-#                       type=str, nargs="+")
-#     args.add_argument("-l", "--cpu_extension",
-#                       help="Optional. Required for CPU custom layers. "
-#                            "MKLDNN (CPU)-targeted custom layers. Absolute path to a shared library with the"
-#                            " kernels implementations.", type=str, default=None)
-#     args.add_argument("-d", "--device",
-#                       help="Optional. Specify the target device to infer on; CPU, GPU, FPGA, HDDL, MYRIAD or HETERO: is "
-#                            "acceptable. The sample will look for a suitable plugin for device specified. Default "
-#                            "value is CPU",
-#                       default="CPU", type=str)
-#     args.add_argument("--labels", help="Optional. Path to a labels mapping file", default=None, type=str)
-#     args.add_argument("-nt", "--number_top", help="Optional. Number of top results", default=10, type=int)
-
-#     return parser
-
 
 def func(impath,x,device="CPU"):
     log.basicConfig(format="[ %(levelname)s ] %(message)s", level=log.INFO, stream=sys.stdout)
-    #args = build_argparser().parse_args()
-    # model_xml = r'C:\Users\Anish\Desktop\DL_Test\Acute-Infarct-DL-master-2\src\model.h5.xml'
     model_xml = "model.h5.xml"
-    # model_xml = "C:\\Users\\bidnu\\Documents\\Sem_6\\Deep_Learning_CIE\\Final_Project\\Acute-Infarct-DL\\src\\model.h5.xml"
     model_bin = os.path.splitext(model_xml)[0] + ".bin"
 
     # Plugin initialization for specified device and load extensions library if specified
@@ -104,17 +77,13 @@ def func(impath,x,device="CPU"):
     res = res[out_blob]
     
     idx = np.argsort(res[0])[-1]
-    #print(idx)
-    #print(res)
     h = np.argmax(res)
-    #print(h)
     k = category_list[h]
     print('The image belongs to class: {}'.format(k))
-    if (h == x):
+    if (k == x):
         ind = 1
         print("True\n")
     else:
         ind = 0
         print("False\n")
-    #print(res.shape)
     return ind

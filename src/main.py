@@ -27,11 +27,4 @@ if __name__ == "__main__":
   rename.rename_files(src_path,True)
   filtimg.keep_pic(src_path,"DWI",True)
 
-  # 2 folders with almost same name so merging them manually here
-  fold1 = "Right  parietal lobe"
-  fold2 = "Right parietal lobe"
-  base_path = os.path.join(src_path[0:-4],"output","Infer_data")
-  clean.copyfile(os.path.join(base_path,fold1),os.path.join(base_path,fold2))
-  os.rmdir(os.path.join(base_path,fold1))
-
   print("Successfully completed")

@@ -53,7 +53,6 @@ def rename_folders(src_path):
   for i in range(len(folder_list)):
     os.rename(os.path.join(cleaned_data_folder_path,folder_list[i]),os.path.join(cleaned_data_folder_path,cleaned_folder_names[i]))
 
-# rename_folders(os.getcwd())
 def copyfile(src_path,dest_path):
   files = [f for f in os.listdir(src_path) if f.endswith('.jpg')]
   sfolder_path = os.path.abspath(src_path)
@@ -76,93 +75,18 @@ def further_name_clean(src_path):
   for i in folder_list_to_merge:
     copyfile(i[0],i[-1])
 
+  # further cleaning manually by hardcoding
+  folder_list_to_merge2 = [["lacunar_infarct_dorsal_aspect_pons","dorsal_aspect_pons"],
+  ["lacunar_infarct_medulla_oblongata_left","medulla_oblongata_left"],
+  ["lacunar_infarct_pons_left","pons_left"],
+  ["lacunar_infarct_posterior_limb_left_internalcapsule","posterior_limb_left_internalcapsule"],
+  ["lacunar_infarct_right_putamen","right_putamen"],
+  ["lacunar_infarcts_left_corona_radiata","left_corona_radiata"]]
+
+  for i in folder_list_to_merge2:
+    os.rename(i[0],i[-1])
+
   folder_list = os.listdir(cleaned_data_folder_path)
   for fold in folder_list:
-    if len(os.listdir(fold)) == 0: # Check is empty..
-      os.rmdir(fold) # Delete..
-
-
-# def further_name_clean1(src_path):
-#   cleaned_data_folder_path = os.path.join(src_path[0:-4],"output","CLEANED_DATA")
-#   os.chdir(cleaned_data_folder_path)
-#   # os.makedirs("temp",exist_ok=True)
-#   folder_list = os.listdir(cleaned_data_folder_path)
-#   folder_list = [f.split("_") for f in folder_list]
-#   # print(folder_list)
-#   word_list = ["lacunar","infarcts","infarct","lobe"]
-
-#   new_folder_list = list()
-#   for fold in folder_list:
-#     temp = [w for w in fold if not w in word_list]
-#     new_folder_list.append(temp)
-#   # print(new_folder_list)
-
-#   temp1 = []
-#   for i in new_folder_list:
-#     temp2 = "" 
-#     for j in i:
-#       temp2 = temp2 + j + "_"
-#     # print(temp2)
-#     temp1.append(temp2[0:-1])
-
-#   print(temp1)
-
-#   # for i in temp1:
-#   #   # print(i)
-#   #   # print(type(i))
-#   #   if not os.path.exists(i):
-#   #     print("here")
-#   #     os.makedirs(i)
-
-#   # print(temp1)
-#   duplicates = set([x for x in temp1 if temp1.count(x) > 1])
-#   print(duplicates)
-  
-#   # idx = list()
-#   # for i in duplicates:
-#   #   indices = [j for j,x in enumerate(temp1) if i in x]
-#   #   print(i)
-#   #   print(indices)
-#   #   for k in indices[1:]:
-#   #     print(k)
-#   #     print(temp1[k])
-#   #     copyfile(temp1[k],i)
-#     # idx.extend(indices)
-#     # if i in temp1:
-#       # ind = temp1.index(i)
-#       # print(ind)
-#   #     copyfile(temp1[ind],i)
-#   #   else:
-#   #     pass
-#     # old_folder1 = "lacunar_infarct_" + i
-#     # old_folder2 = "lacunar_infarcts_" + i
-#     # old_folder3 = i + "_lacunar_infarcts"
-#     # old_folder4 = i + "_lacunar_infarct"
-#     # old_folder5 = i + "_infarcts"
-#     # old_folder6 = i + "_infarct"
-#     # old_folder7 = i + "_lobe"
-#     # print(old_folder1)
-#     # print(i)
-#     # if os.path.exists(old_folder1):
-#     #   copyfile(old_folder1,i)
-#     # elif os.path.exists(old_folder2):
-#     #   copyfile(old_folder2,i)
-#     # elif os.path.exists(old_folder3):
-#     #   copyfile(old_folder3,i)
-#     # elif os.path.exists(old_folder4):
-#     #   copyfile(old_folder4,i)
-#     # elif os.path.exists(old_folder5):
-#     #   copyfile(old_folder5,i)
-#     # elif os.path.exists(old_folder6):
-#     #   copyfile(old_folder6,i)
-#     # elif os.path.exists(old_folder7):
-#     #   copyfile(old_folder7,i)
-#     # else:
-#     #   pass
-
-#   # folder_list = os.listdir(cleaned_data_folder_path)
-#   # for fold in folder_list:
-#   #   if len(os.listdir(fold)) == 0: # Check is empty..
-#   #     os.rmdir(fold) # Delete..
-
-# further_name_clean(os.getcwd())
+    if len(os.listdir(fold)) == 0:
+      os.rmdir(fold)

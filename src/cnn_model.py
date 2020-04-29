@@ -36,18 +36,18 @@ def define_model():
     model = Sequential()
     model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer = 'he_uniform', padding='same',
                      input_shape=(200, 200, 3)))
-    model.add(MaxPooling2D((4, 4)))
-    model.add(Dropout(0.5))
-
-    model.add(Conv2D(8, (3, 3), activation='relu', kernel_initializer = 'he_uniform', padding='same'))
     model.add(MaxPooling2D((2, 2)))
+    model.add(Dropout(0.3))
+
+    model.add(Conv2D(16, (3, 3), activation='relu', kernel_initializer = 'he_uniform', padding='same'))
+    model.add(MaxPooling2D((3, 3)))
     model.add(Dropout(0.1))
 
     model.add(Flatten())
     model.add(Dense(64, activation='relu'))
     model.add(Dense(op_layer, activation='softmax'))
     # compile model
-    opt = SGD(lr=0.002, momentum=0.9)
+    opt = SGD(lr=0.001, momentum=0.9)
     model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
