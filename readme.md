@@ -54,7 +54,7 @@ Any folder (Documents or Desktop etc) </br>
 2. Open the file named as "main.py" and run it.
 3. Run "cnn_model.py" next.
 4. Now use the Intel model_optimizer and generate xml and bin files for the model. The generated xml and bin files should be in the "src" folder. The command line commands for the model optimizer are given further below.
-5. Finally run "final.py" for performing inference.
+5. Finally <u> run "final.py" from the cmd window </u> for performing inference.
 
 ### Output generated:
 1. Creates a folder called "output". </br>
