@@ -17,7 +17,7 @@ for subdir, dirs, files in os.walk(path):
   for filename in files:
     filepath = subdir + os.sep + filename
     if filepath.endswith(".jpg"):
-      test_img_ind.append((x-1))
+      test_img_ind.append(x)
   x = x + 1
 '''for i in range(len(test_folders)):
   if not (len(os.listdir(os.path.join(test_data_dir,test_folders[i]))) == 0):
