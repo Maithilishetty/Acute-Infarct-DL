@@ -9,11 +9,11 @@ To do this after installing JAVA, copy the path of the "bin" folder of the insta
 
 ### Required Directories:
 1. "Assignment_2" directory with all the case folders and patient information pdf file </br>
-2. "src" folder which has all the source codes (10 files) </br>
+2. "src" folder which has all the source codes (12 .py files) </br>
    (Both these folders should be in the same directory like Desktop or Documents or any other folder) </br>
 
 Initial file sturcture: </br>
-Any folder (Documents or Desktop etc)  
+Any folder (Documents or Desktop etc) </br>
 &nbsp; &nbsp; | </br>
 &nbsp; &nbsp; +-- dir Assignment_2 (folder with all case folders and pdf) </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; | </br>
@@ -39,23 +39,30 @@ Any folder (Documents or Desktop etc)
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file inference_test2.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file inference_test.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file final.py </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5 </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.pb </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.xml </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.bin </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.mapping </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file cnn_model.py_plot.png </br>
 &nbsp; &nbsp; | </br>
-&nbsp; &nbsp; +-- file readme.txt </br>
+&nbsp; &nbsp; +-- file readme.md </br>
+&nbsp; &nbsp; +-- file .gitignore </br>
 
 ### Running the code:
-1. Open the "src" folder
-2. Open the file named as "main.py" and run it
-3. Run "cnn_model.py" after "main.py"
-4. Now use the Intel model_optimizer and generate xml and bin files for the model
-5. Finally run "final.py" for performing inference
+1. Open the "src" folder.
+2. Open the file named as "main.py" and run it.
+3. Run "cnn_model.py" next.
+4. Now use the Intel model_optimizer and generate xml and bin files for the model. The generated xml and bin files should be in the "src" folder. The command line commands for the model optimizer are given further below.
+5. Finally run "final.py" for performing inference.
 
 ### Output generated:
-1. Creates a folder called "output" </br>
-2. This folder contains the csv file generated (ACUTE_INFARCTS_Updated.csv and Inference_Data_GroundTruths.csv) and used by the code and also contains 2 other folders called "CLEANED_DATA" and "Infer_data" </br>
-3. "CLEANED_DATA" contains folders folders named as the location of the brain infarcts and each of these folders contains the brain images of the person who has an infarcts at that particular location </br>
-4. "CLEANED_DATA" also contains the "test" and "train" folders which has data used by the CNN model </br>
-5. "Infer_data" folder contains the data to be used during inference </br>
-6. In the "src" folder, the model files which are generated are saved </br>
+1. Creates a folder called "output". </br>
+2. This folder contains the csv file generated (ACUTE_INFARCTS_Updated.csv and Inference_Data_GroundTruths.csv) and used by the code and also contains 2 other folders called "CLEANED_DATA" and "Infer_data". </br>
+3. "CLEANED_DATA" contains folders folders named as the location of the brain infarcts and each of these folders contains the brain images of the person who has an infarcts at that particular location. </br>
+4. "CLEANED_DATA" also contains the "test" and "train" folders which has data used by the CNN model. </br>
+5. "Infer_data" folder contains the data to be used during inference. </br>
+6. In the "src" folder, the model files which are generated are saved. </br>
 
 ### CMD Commands:
 1. To generate an XML and bin file: </br>
