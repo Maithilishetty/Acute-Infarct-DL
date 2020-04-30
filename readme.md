@@ -39,6 +39,7 @@ Any folder (Documents or Desktop etc) </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file inference_test2.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file inference_test.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file final.py </br>
+&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file generate_images.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5 </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.pb </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.xml </br>
@@ -51,10 +52,11 @@ Any folder (Documents or Desktop etc) </br>
 
 ### Running the code:
 1. Open the "src" folder.
-2. Open the file named as "main.py" and run it.
-3. Run "cnn_model.py" next.
-4. Now use the Intel model_optimizer and generate xml and bin files for the model. The generated xml and bin files should be in the "src" folder. The command line commands for the model optimizer are given further below.
-5. Finally <u> run "final.py" from the cmd window </u> for performing inference.
+2. Open the file named as "main.py" and run it. </br>
+3. Next tun generate_images.py. This performs data augmentation. </br> 
+4. Run "cnn_model.py" next. </br>
+5. Now use the Intel model_optimizer and generate xml and bin files for the model. The generated xml and bin files should be in the "src" folder. The command line commands for the model optimizer are given further below. </br>
+6. Finally <u> run "final.py" from the cmd window </u> for performing inference. </br>
 
 ### Output generated:
 1. Creates a folder called "output". </br>
