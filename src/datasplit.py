@@ -58,9 +58,9 @@ def create_dataset(src_path):
     test_count = int((len(files) - train_count))
     # get files to segregate for train,test and validation data set
     train_data_list = files[0: train_count]
-    print(train_data_list)
+    # print(train_data_list)
     test_data_list = files[train_count:train_count + 1 + test_count]
-    print(test_data_list)
+    # print(test_data_list)
 
     for train_data in train_data_list:
       train_path = src_folder_path + '/' + train_data

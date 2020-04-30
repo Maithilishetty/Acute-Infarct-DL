@@ -23,8 +23,8 @@ for subdir, dirs, files in os.walk(path):
     for filename in files:
         total = 0
         filepath = subdir + os.sep + filename
-        print(subdir)
-        print(filepath)
+        # print(subdir)
+        # print(filepath)
         image = load_img(filepath)
         image = img_to_array(image)
         image = np.expand_dims(image, axis=0)
@@ -34,5 +34,5 @@ for subdir, dirs, files in os.walk(path):
             total += 1
                 # if we have reached the specified number of examples, break
                 # from the loop
-            if total == 20:
+            if total == 10:
                 break
