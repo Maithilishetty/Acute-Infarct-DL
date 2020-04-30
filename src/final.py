@@ -10,7 +10,7 @@ def choose_path(src_path,folder,inference=False):
 
 # path = os.path.join(src_path[0:-4],"output","CLEANED_DATA","train")
 src_path = os.getcwd()
-path = choose_path(src_path,"train")
+path = choose_path(src_path,"train",True)
 
 folder_list = os.listdir(path)
 folder_path = [os.path.join(path,i) for i in folder_list]
