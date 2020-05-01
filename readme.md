@@ -9,8 +9,9 @@ To do this after installing JAVA, copy the path of the "bin" folder of the insta
 
 ### Required Directories:
 1. "Assignment_2" directory with all the case folders and patient information pdf file </br>
-2. "src" folder which has all the source codes (12 .py files) </br>
-   (Both these folders should be in the same directory like Desktop or Documents or any other folder) </br>
+2. "src" folder which has all the source codes (13 .py files) </br>
+3. "Inference_Data" dir which contains data for performing inference. </br>
+   (All these folders should be in the same directory like Desktop or Documents or any other folder) </br>
 
 Initial file sturcture: </br>
 Any folder (Documents or Desktop etc) </br>
@@ -40,11 +41,6 @@ Any folder (Documents or Desktop etc) </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file inference_test.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file final.py </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file generate_images.py </br>
-&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5 </br>
-&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.pb </br>
-&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.xml </br>
-&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.bin </br>
-&nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file model.h5.mapping </br>
 &nbsp; &nbsp; |&nbsp; &nbsp; &nbsp; &nbsp; +-- file cnn_model.py_plot.png </br>
 &nbsp; &nbsp; | </br>
 &nbsp; &nbsp; +-- file readme.md </br>
@@ -53,12 +49,12 @@ Any folder (Documents or Desktop etc) </br>
 ### Running the code:
 1. Open the "src" folder.
 2. Open the file named as "main.py" and run it. </br>
-3. Next tun generate_images.py. This performs data augmentation. </br> 
+3. Next run "generate_images.py". This performs data augmentation on the training data. </br> 
 4. Run "cnn_model.py" next. </br>
 5. Now use the Intel model_optimizer and generate xml and bin files for the model. The generated xml and bin files should be in the "src" folder. The command line commands for the model optimizer are given further below. </br>
 6. Finally <u> run "final.py" from the cmd window </u> for performing inference. </br>
 
-### Output generated:
+### Outputs generated:
 1. Creates a folder called "output". </br>
 2. This folder contains the csv file generated (ACUTE_INFARCTS_Updated.csv and Inference_Data_GroundTruths.csv) and used by the code and also contains 2 other folders called "CLEANED_DATA" and "Infer_data". </br>
 3. "CLEANED_DATA" contains folders folders named as the location of the brain infarcts and each of these folders contains the brain images of the person who has an infarcts at that particular location. </br>
@@ -70,5 +66,7 @@ Any folder (Documents or Desktop etc) </br>
 1. To generate an XML and bin file: </br>
 &nbsp; &nbsp; a. Run the setupvars.bat file to initialize the OpenVino Environment. </br>
 &nbsp; &nbsp; b. Go to the model optimizer folder in IntelSWTools and run: python mo_tf.py --input_model <input_model_destination>.pb -b 1 --output_dir <output_directory> --scale 255 --data_type FP32
-2. To obtain an inference on the input image: </br>
+2. To obtain an inference of single input image: </br>
 &nbsp; &nbsp; a. python inference_test.py -m <model_destination>.xml -i <input_image>
+3. To obtain inference of all images: </br>
+&nbsp; &nbsp; a. python final.py 
