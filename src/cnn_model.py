@@ -39,9 +39,9 @@ def define_model():
     model.add(MaxPooling2D((2, 2)))
     model.add(Dropout(0.3))
 
-##    model.add(Conv2D(16, (3, 3), activation='relu', kernel_initializer = 'he_uniform', padding='same'))
-##    model.add(MaxPooling2D((3, 3)))
-##    model.add(Dropout(0.1))
+    model.add(Conv2D(16, (3, 3), activation='relu', kernel_initializer = 'he_uniform', padding='same'))
+    model.add(MaxPooling2D((3, 3)))
+    model.add(Dropout(0.1))
 
     model.add(Flatten())
     model.add(Dense(64, activation='relu'))
