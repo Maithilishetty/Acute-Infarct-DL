@@ -80,7 +80,7 @@ def run_test_harness():
     test_it = datagen.flow_from_directory(test_data_dir,
                                           class_mode='categorical', batch_size=128, target_size=(200, 200),shuffle=False)
     # fit model
-    history = model.fit_generator(train_it, steps_per_epoch=len(train_it), epochs=10, verbose=1)
+    history = model.fit_generator(train_it, steps_per_epoch=len(train_it), epochs=50, verbose=1)
     # evaluate model
     _, acc = model.evaluate_generator(test_it, steps=len(test_it), verbose=0)
     # k = model.predict(test_it)
